@@ -2,8 +2,7 @@
 
 > Modelo supervisado para predecir la probabilidad de compra del servicio Telcom y priorizar clientes con mayor potencial comercial para campañas de marketing.
 
-**Autor(a):** Valeria Thais Ureta Llanque  
-**Metodología:** CRISP-DM  
+**Autor(a):** Valeria Thais Ureta Llanque    
 **Programa:** Diplomado Data Scientist  
 **Profesor:** Cezar Quezada (Data Scientist)  
 **Nota:** 19  
