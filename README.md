@@ -1,6 +1,6 @@
 # Predicción de Compra del Servicio Telcom - EastWest Airlines
 
-> Modelo supervisado para predecir la probabilidad de compra del servicio Telcom y priorizar clientes con mayor potencial comercial para campañas de marketing.
+> Modelo supervisado para predecir la probabilidad de compra del servicio Telcom y priorizar clientes con mayor potencial comercial para campaña de marketing.
 
 **Autor(a):** Valeria Thais Ureta Llanque    
 **Programa:** Diplomado Data Scientist  
@@ -12,7 +12,7 @@
 
 # Problema identificado
 
-EastWest Airlines busca aumentar la efectividad comercial de sus campañas para el servicio Telcom, priorizando a los clientes con mayor probabilidad de compra y reduciendo contactos poco rentables.
+EastWest Airlines busca aumentar la efectividad comercial de una campaña para el servicio Telcom, priorizando a los clientes con mayor probabilidad de compra y reduciendo contactos poco rentables.
 
 Actualmente, una campaña masiva puede asignar el mismo esfuerzo comercial a toda la base de clientes, sin diferenciar entre clientes con alta propensión de compra, clientes con señales débiles o clientes que requieren una estrategia distinta de comunicación. Esto puede generar mayores costos de contacto, menor tasa de conversión y pérdida de oportunidades comerciales en segmentos con mayor potencial.
 
