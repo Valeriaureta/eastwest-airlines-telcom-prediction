@@ -2,10 +2,10 @@
 
 > Proyecto de analítica de datos y modelamiento predictivo para estimar la probabilidad de compra de un servicio de telecomunicaciones y priorizar clientes con mayor potencial comercial.
 
-**Autor(a):** Valeria Thais Ureta Llanque
-**Programa:** Diplomado Data Scientist
-**Profesor:** Cezar Quezada (Data Scientist)
-**Nota:** 19
+**Autor(a):** Valeria Thais Ureta Llanque  
+**Programa:** Diplomado Data Scientist  
+**Profesor:** Cezar Quezada (Data Scientist)  
+**Nota:** 19  
 **Stack:** Python | pandas | numpy | matplotlib | seaborn | scikit-learn | XGBoost
 
 ---
