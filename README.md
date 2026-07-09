@@ -10,7 +10,7 @@
 
 ---
 
-## Estructura del repositorio
+## Estructura del proyecto
 
 ```text
 .
