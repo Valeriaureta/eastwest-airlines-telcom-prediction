@@ -18,9 +18,6 @@ Una estrategia comercial masiva puede asignar el mismo esfuerzo a toda la base d
 
 El objetivo del proyecto fue construir un modelo supervisado que permita estimar la probabilidad de compra por cliente. A partir de esa probabilidad, se generó un score de compra para ordenar la base y facilitar la priorización de audiencias para futuras acciones comerciales.
 
-**Dataset:** `EastWestAirlinesNN.csv`
-**Granularidad del dataset:** Cada registro representa un cliente único identificado por `ID#`, con variables asociadas a fidelización, acumulación de millas, actividad reciente, compras online y compra del servicio de telecomunicaciones.
-
 ---
 
 ## Estructura del proyecto
