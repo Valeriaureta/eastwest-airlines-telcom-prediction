@@ -1,6 +1,6 @@
 # Modelo de Propensión de Compra para Priorización Comercial - EastWest Airlines
 
-> Proyecto de analítica y machine learning para estimar la probabilidad de compra de un servicio de telecomunicaciones y priorizar clientes con mayor potencial comercial.
+> Proyecto de analítica comercial para estimar la probabilidad de compra de un servicio de telecomunicaciones y priorizar clientes con mayor potencial comercial.
 
 **Autor(a):** Valeria Thais Ureta Llanque  
 **Programa:** Diplomado Data Scientist  
