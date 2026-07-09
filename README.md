@@ -1,6 +1,6 @@
 # Modelo de Propensión de Compra para Priorización Comercial - EastWest Airlines
 
-> Proyecto de analítica de datos y modelamiento predictivo para estimar la probabilidad de compra de un servicio de telecomunicaciones y priorizar clientes con mayor potencial comercial.
+> Proyecto de analítica y machine learning para estimar la probabilidad de compra de un servicio de telecomunicaciones y priorizar clientes con mayor potencial comercial.
 
 **Autor(a):** Valeria Thais Ureta Llanque  
 **Programa:** Diplomado Data Scientist  
@@ -10,123 +10,105 @@
 
 ---
 
-# Problema identificado
-
-EastWest Airlines contaba con una base histórica de clientes y resultados de una campaña comercial asociada a la compra de un servicio de telecomunicaciones. El reto consistía en analizar esta información para identificar qué clientes tenían mayor probabilidad de compra y cómo priorizarlos de forma más eficiente.
-
-Una estrategia comercial masiva puede asignar el mismo esfuerzo a toda la base de clientes, sin diferenciar entre clientes con alto potencial de conversión y clientes con menor probabilidad de respuesta. Esto puede generar menor eficiencia en los contactos, mayores costos operativos y pérdida de oportunidades en clientes con mayor potencial.
-
-El objetivo del proyecto fue construir un modelo supervisado que permita estimar la probabilidad de compra por cliente. A partir de esa probabilidad, se generó un score de compra para ordenar la base y facilitar la priorización de audiencias para futuras acciones comerciales.
-
----
-
-## Estructura del proyecto
+## Estructura del repositorio
 
 ```text
 .
 ├── input
-│   └── EastWestAirlinesNN.csv                 # Dataset original
+│   └── EastWestAirlinesNN.csv
 ├── notebooks
-│   ├── EDA.ipynb                              # Limpieza, validación y análisis exploratorio
-│   └── modelos.ipynb                          # Modelamiento predictivo y comparación de modelos
+│   ├── EDA.ipynb
+│   └── modelos.ipynb
 ├── output
-│   ├── eastwest_model_ready.csv               # Base preparada para modelamiento
-│   └── eastwest_crm_scoring.csv               # Base final con score y priorización de clientes
+│   ├── eastwest_model_ready.csv
+│   └── eastwest_crm_scoring.csv
 ├── requirements.txt
 └── README.md
 ```
 
----
-
-# Notebooks principales
-
-## `notebooks/EDA.ipynb`
-
-El notebook contiene:
-
-1. Entendimiento inicial del dataset.
-2. Estandarización de nombres de columnas.
-3. Revisión de granularidad y unidad de análisis.
-4. Corrección de tipos de datos.
-5. Validación de variables binarias.
-6. Tratamiento de valores nulos.
-7. Revisión de duplicados.
-8. Análisis de outliers.
-9. Análisis univariado y bivariado.
-10. Revisión de la variable objetivo `phone_sale`.
-11. Exportación de la base preparada para modelamiento.
+| Archivo                    | Descripción                                                |
+| -------------------------- | ---------------------------------------------------------- |
+| `EDA.ipynb`                | Limpieza, validación y análisis exploratorio de la base    |
+| `modelos.ipynb`            | Entrenamiento, evaluación de modelos y generación de score |
+| `eastwest_model_ready.csv` | Base preparada para modelamiento                           |
+| `eastwest_crm_scoring.csv` | Base final con score y priorización de clientes            |
 
 ---
 
-## `notebooks/modelos.ipynb`
+## Resumen ejecutivo
 
-El notebook contiene:
+EastWest Airlines contaba con una base histórica de clientes y resultados de una campaña comercial asociada a la compra de un servicio de telecomunicaciones.
 
-1. Carga de la base preparada.
-2. Definición de variables predictoras y variable objetivo.
-3. Revisión del desbalance de clases.
-4. Split train-test estratificado.
-5. Entrenamiento de Regresión Logística.
-6. Entrenamiento de Random Forest.
-7. Entrenamiento de XGBoost.
-8. Comparación de modelos con métricas predictivas y comerciales.
-9. Evaluación de priorización en Top 10%, Top 20% y Top 30%.
-10. Generación de score de compra por cliente.
-11. Experimento de sensibilidad excluyendo `club_member`.
-12. Conclusiones finales para negocio.
+El objetivo del proyecto fue construir un modelo de propensión de compra que permitiera pasar de una estrategia de contacto masivo a una priorización comercial basada en datos.
+
+A partir del modelo, se generó un score de compra por cliente para ordenar la base y enfocar los esfuerzos comerciales en los clientes con mayor probabilidad de conversión.
 
 ---
 
-# Preparación y validación de datos
+## Problema de negocio
 
-Antes del modelamiento se realizó una revisión de calidad de datos para asegurar que la base fuera consistente y utilizable para análisis.
+Una campaña comercial masiva puede asignar el mismo esfuerzo a toda la base de clientes, sin diferenciar entre clientes con alto y bajo potencial de compra.
 
-Las principales actividades fueron:
+Esto puede generar:
 
-* Validación de nombres de columnas, tipos de datos y variables binarias.
-* Revisión de valores nulos y duplicados.
-* Confirmación de la unidad de análisis: cada fila representa un cliente único.
-* Análisis de outliers en variables como millas, vuelos y transacciones.
-* Preparación de una base final para modelamiento: `eastwest_model_ready.csv`.
+* Menor eficiencia en los contactos.
+* Mayor costo operativo.
+* Menor tasa de conversión.
+* Pérdida de oportunidades en clientes con mayor potencial.
 
-Se eliminaron registros sin identificador de cliente ni resultado de compra, ya que no permitían asociar correctamente la información a un cliente ni validar la variable objetivo.
+La pregunta central del proyecto fue:
 
----
-
-# Variable objetivo
-
-La variable objetivo fue:
-
-```text
-phone_sale
-```
-
-Donde:
-
-* `1` = el cliente compró el servicio de telecomunicaciones.
-* `0` = el cliente no compró el servicio.
-
-En la base histórica, 1,042 de 4,985 clientes compraron el servicio, lo que representa una tasa base de compra de aproximadamente 20.9%.
-
-Esta tasa fue utilizada como punto de comparación para evaluar si los modelos lograban identificar grupos de clientes con mayor probabilidad de conversión.
+> **¿A qué clientes debería priorizar el equipo comercial para aumentar la conversión de la campaña?**
 
 ---
 
-# Modelos utilizados
+## Datos utilizados
+
+**Dataset:** `EastWestAirlinesNN.csv`
+**Registros analizados:** 4,985 clientes
+**Unidad de análisis:** cliente único
+**Variable objetivo:** `phone_sale`
+
+La variable `phone_sale` indica si el cliente compró o no el servicio de telecomunicaciones:
+
+* `1` = compró el servicio.
+* `0` = no compró el servicio.
+
+La tasa base de compra fue de aproximadamente **20.9%**, es decir, alrededor de 21 de cada 100 clientes compraron el servicio en la base histórica.
+
+---
+
+## Metodología
+
+El proyecto siguió un flujo de trabajo orientado a convertir datos históricos en una herramienta de priorización comercial:
+
+1. Validación y limpieza de la base de clientes.
+2. Revisión de la unidad de análisis y variable objetivo.
+3. Análisis exploratorio de compradores y no compradores.
+4. Entrenamiento de modelos predictivos.
+5. Evaluación técnica y comercial de los modelos.
+6. Generación de score de compra por cliente.
+7. Exportación de una base final priorizada.
+
+---
+
+## Modelos evaluados
 
 Se compararon tres modelos supervisados:
 
-* **Regresión Logística:** modelo base interpretable.
-* **Random Forest:** modelo flexible para capturar relaciones no lineales.
-* **XGBoost:** modelo competitivo para ranking y priorización comercial.
+| Modelo              | Propósito                                      |
+| ------------------- | ---------------------------------------------- |
+| Regresión Logística | Modelo base interpretable                      |
+| Random Forest       | Modelo flexible y equilibrado                  |
+| XGBoost             | Modelo competitivo para ranking y priorización |
 
-El objetivo no fue únicamente clasificar clientes como compradores o no compradores, sino generar una probabilidad estimada de compra que permita ordenar la base según potencial comercial.
+El objetivo no fue únicamente clasificar clientes como compradores o no compradores, sino generar una probabilidad estimada de compra para ordenar la base según potencial comercial.
 
 ---
 
-# Métricas principales
+## Resultados técnicos
 
-Debido a que la base estaba desbalanceada, no se utilizó únicamente accuracy. También se evaluaron métricas como precision, recall, F1-score, ROC-AUC, PR-AUC y Brier score.
+Debido al desbalance de la variable objetivo, no se evaluó únicamente accuracy. También se revisaron precision, recall, F1-score, ROC-AUC, PR-AUC y Brier score.
 
 | Modelo              | Accuracy | Precision | Recall | F1-score | ROC-AUC | PR-AUC | Brier score |
 | ------------------- | -------: | --------: | -----: | -------: | ------: | -----: | ----------: |
@@ -134,100 +116,98 @@ Debido a que la base estaba desbalanceada, no se utilizó únicamente accuracy. 
 | XGBoost             |   81.85% |    57.38% | 50.48% |   53.71% |  77.18% | 65.60% |      0.1474 |
 | Regresión Logística |   82.85% |    61.21% | 48.56% |   54.16% |  76.49% | 64.91% |      0.1485 |
 
-Random Forest fue el modelo más equilibrado en métricas generales, destacando en accuracy, precision, F1-score, ROC-AUC y PR-AUC.
+**Random Forest** fue el modelo más equilibrado en métricas generales, destacando en accuracy, precision, F1-score, ROC-AUC y PR-AUC.
 
 ---
 
-# Evaluación de priorización comercial
+## Resultados de priorización comercial
 
-Además de las métricas predictivas, se evaluó la mejora de priorización comercial. Para ello, los clientes fueron ordenados según su score de compra y se calculó la tasa real de compra en los grupos con mayor probabilidad estimada.
+Además de las métricas técnicas, se evaluó si el modelo ayudaba a priorizar mejor la campaña.
 
-La tasa base en el conjunto de prueba fue 20.86%.
+Para ello, se ordenó la base según el score de compra y se calculó la tasa real de compra en los grupos con mayor probabilidad estimada.
 
-| Modelo              | Tasa base test | Compra Top 10% | Lift Top 10% | Compra Top 20% | Lift Top 20% | Compra Top 30% | Lift Top 30% |
-| ------------------- | -------------: | -------------: | -----------: | -------------: | -----------: | -------------: | -----------: |
-| Random Forest       |         20.86% |         89.00% |         4.27 |         54.50% |         2.61 |         40.67% |         1.95 |
-| XGBoost             |         20.86% |         90.00% |         4.31 |         55.50% |         2.66 |         42.33% |         2.03 |
-| Regresión Logística |         20.86% |         92.00% |         4.41 |         52.50% |         2.52 |         40.33% |         1.93 |
+La tasa base en el conjunto de prueba fue **20.86%**.
 
-La evaluación mostró que los clientes con mayor score concentraban una tasa de compra significativamente superior a la tasa base. Por ejemplo, en el Top 30% priorizado por XGBoost, la tasa de compra fue 42.33%, más del doble de la tasa base del conjunto de prueba.
+| Modelo              | Compra Top 10% | Mejora Top 10 | Compra Top 20% | Mejora Top 20 | Compra Top 30% | Mejora Top 30 |
+| ------------------- | -------------: | ------------: | -------------: | ------------: | -------------: | ------------: |
+| Random Forest       |         89.00% |         4.27x |         54.50% |         2.61x |         40.67% |         1.95x |
+| XGBoost             |         90.00% |         4.31x |         55.50% |         2.66x |         42.33% |         2.03x |
+| Regresión Logística |         92.00% |         4.41x |         52.50% |         2.52x |         40.33% |         1.93x |
 
-Esto evidencia que el modelo puede aportar valor como herramienta de priorización comercial.
+El principal hallazgo fue que los clientes con mayor score concentraban una tasa de compra muy superior a la tasa base.
 
----
-
-# Generación de score de compra
-
-Después de comparar los modelos, se generó un score de compra por cliente. Este score corresponde a la probabilidad estimada de compra del servicio de telecomunicaciones.
-
-La lógica fue:
-
-1. Entrenar y evaluar los modelos.
-2. Seleccionar un modelo de referencia.
-3. Calcular la probabilidad estimada de compra por cliente.
-4. Crear una columna de score de compra.
-5. Ordenar la base de clientes según el score.
-6. Definir grupos priorizados para futuras acciones comerciales.
-
-La salida final fue una base estructurada con información como:
-
-* ID del cliente.
-* Score de compra.
-* Grupo de priorización.
-* Variables relevantes del cliente.
-* Resultado real de compra.
-
-Esta base puede ser utilizada como insumo para seguimiento comercial, reportería o selección de audiencias.
+Por ejemplo, con XGBoost, el Top 30% priorizado alcanzó una tasa de compra de **42.33%**, más del doble de la tasa base del conjunto de prueba.
 
 ---
 
-# Experimento sin `club_member`
+## Score de compra
 
-Durante el análisis se detectó que la variable `club_member` tenía una influencia muy alta en los resultados del modelo. Esta variable representa la pertenencia del cliente al programa de fidelización de la aerolínea.
+El score de compra corresponde a la probabilidad estimada de que un cliente compre el servicio.
 
-Por este motivo, se entrenó una segunda versión de los modelos excluyendo esta variable, con el objetivo de evaluar la dependencia del modelo frente a este atributo y revisar un posible riesgo de fuga de información.
+Este score permitió:
 
-| Modelo sin `club_member`              | Accuracy | F1-score | ROC-AUC | PR-AUC | Top 10% compra | Lift Top 10 |
-| ------------------------------------- | -------: | -------: | ------: | -----: | -------------: | ----------: |
-| Regresión Logística sin `club_member` |   58.78% |   37.25% |  63.09% | 32.15% |         42.00% |        2.01 |
-| Random Forest sin `club_member`       |   59.38% |   35.82% |  60.79% | 30.22% |         43.00% |        2.06 |
-| XGBoost sin `club_member`             |   56.67% |   32.50% |  58.73% | 28.26% |         35.00% |        1.68 |
-
-La caída de desempeño confirmó que esta variable concentraba una parte importante del poder predictivo. Antes de utilizar el modelo en un entorno real, sería necesario validar con negocio si esta información estaba disponible antes de la campaña o si podría representar fuga de información.
+* Ordenar clientes de mayor a menor probabilidad de compra.
+* Identificar grupos prioritarios para campaña.
+* Comparar el desempeño comercial de los modelos.
+* Generar una base final utilizable para seguimiento, reportería o selección de audiencias.
 
 ---
 
-# Conclusiones
+## Validación de confiabilidad
 
-* Se gestionó y validó una base histórica de 4,985 clientes, confirmando la unidad de análisis y preparando la información para modelamiento.
+Durante el análisis se identificó que `club_member`, variable asociada a la pertenencia del cliente al programa de fidelización de la aerolínea, tenía una influencia muy alta en los resultados.
 
-* La tasa base de compra fue aproximadamente 20.9%, lo que permitió establecer un punto de comparación para evaluar la mejora generada por los modelos.
+Por ello, se desarrolló un escenario alternativo excluyendo esta variable, con el objetivo de evaluar la dependencia del modelo y revisar un posible riesgo de fuga de información.
 
-* Random Forest fue el modelo más equilibrado en métricas generales, destacando en precision, F1-score, ROC-AUC y PR-AUC.
+| Modelo sin `club_member`              | Accuracy | F1-score | ROC-AUC | PR-AUC | Compra Top 10% | Mejora Top 10 |
+| ------------------------------------- | -------: | -------: | ------: | -----: | -------------: | ------------: |
+| Regresión Logística sin `club_member` |   58.78% |   37.25% |  63.09% | 32.15% |         42.00% |         2.01x |
+| Random Forest sin `club_member`       |   59.38% |   35.82% |  60.79% | 30.22% |         43.00% |         2.06x |
+| XGBoost sin `club_member`             |   56.67% |   32.50% |  58.73% | 28.26% |         35.00% |         1.68x |
 
-* XGBoost fue una alternativa competitiva para priorización comercial, especialmente en los cortes Top 20% y Top 30%.
-
-* La generación del score de compra permitió transformar el resultado del modelo en una base ordenada para priorizar clientes con mayor potencial.
-
-* El análisis de sensibilidad sin `club_member` permitió identificar una dependencia relevante del modelo y reforzar la necesidad de validar posibles riesgos de fuga de información antes de una implementación real.
-
-* La recomendación es utilizar el modelo como herramienta de apoyo para priorización comercial, no como una regla automática de decisión. Los clientes con mayor score pueden alimentar campañas piloto, pruebas controladas o listas comerciales priorizadas.
+La caída de desempeño confirmó que esta variable concentraba una parte importante del poder predictivo. Antes de usar el modelo en un contexto real, sería necesario validar si esta información estaba disponible antes de la campaña o si podría representar fuga de información.
 
 ---
 
-# Limitaciones
+## Impacto para negocio
 
-* La variable `club_member` debe validarse con negocio para confirmar que estaba disponible antes de la campaña y descartar fuga de información.
-* No se cuenta con una variable temporal de campaña, por lo que no es posible evaluar estabilidad del comportamiento en el tiempo.
-* No se dispone de eventos detallados de campaña, como envíos, aperturas, clics o rebotes.
-* El modelo debe probarse con datos futuros antes de considerarse para una implementación productiva.
+El proyecto permite transformar una base histórica de clientes en una herramienta de priorización comercial.
+
+El negocio podría utilizar el score para:
+
+* Enfocar campañas en clientes con mayor probabilidad de conversión.
+* Reducir contactos poco eficientes.
+* Priorizar recursos comerciales cuando existe capacidad limitada.
+* Alimentar campañas piloto, pruebas controladas o listas comerciales priorizadas.
+* Dar seguimiento a indicadores de conversión por grupo priorizado.
 
 ---
 
-# Posibles mejoras
+## Conclusiones
+
+* Se validó una base histórica de 4,985 clientes y se confirmó que cada fila representaba un cliente único.
+* La tasa base de compra fue aproximadamente 20.9%, utilizada como referencia para evaluar la mejora de priorización.
+* Random Forest fue el modelo más equilibrado en métricas generales.
+* XGBoost destacó en priorización comercial para los cortes Top 20% y Top 30%.
+* El score de compra permitió ordenar clientes y convertir el modelo en un insumo accionable para campañas.
+* La revisión de `club_member` permitió identificar una dependencia relevante y reforzar la confiabilidad del análisis.
+* El modelo debe usarse como apoyo a la priorización comercial, no como una regla automática de decisión.
+
+---
+
+## Limitaciones
+
+* No se cuenta con eventos detallados de campaña, como envíos, aperturas, clics o rebotes.
+* No existe una variable temporal que permita evaluar estabilidad del comportamiento en el tiempo.
+* La variable `club_member` debe validarse con negocio antes de una posible implementación.
+* El modelo debe probarse con datos futuros antes de considerarse productivo.
+
+---
+
+## Posibles mejoras
 
 * Validar la disponibilidad temporal de variables sensibles antes de la campaña.
-* Evaluar el modelo con datos futuros o nuevas campañas.
-* Incorporar eventos de contacto o respuesta comercial si estuvieran disponibles.
-* Construir dashboards de seguimiento para monitorear tasa base, tasas por grupo priorizado y desempeño de campañas.
-* Integrar el score en procesos operativos de priorización comercial o reportería.
+* Evaluar el modelo con nuevas campañas o datos futuros.
+* Incorporar eventos de contacto y respuesta comercial.
+* Construir dashboards de seguimiento con tasa base, tasa por grupo priorizado y conversión.
+* Integrar el score en procesos de reportería o priorización operativa.
